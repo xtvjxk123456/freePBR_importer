@@ -5,8 +5,8 @@ PainterPlugin {
 
 		Component.onCompleted: {
 				// create toolbar buttons
-				var t = alg.ui.addToolBarWidget("UI.qml");
-				t.minHeight =20
+//				var t = alg.ui.addToolBarWidget("UI.qml");
+//				t.minHeight =20
 //				t.rectangle.color = "blue"
 //				t = alg.ui.addToolBarWidget("UI.qml");
 //				t.rectangle.color = "green"
@@ -15,8 +15,8 @@ PainterPlugin {
 //				t = alg.ui.addToolBarWidget("UI.qml");
 //				t.rectangle.color = "purple"
 //				// create a dock widget
-//				var t =alg.ui.addDockWidget("UI.qml");
-
+				var t =alg.ui.addDockWidget("UI.qml");
+                t.minHeight =20
 		}
 
 }
