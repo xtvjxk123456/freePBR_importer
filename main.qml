@@ -6,7 +6,7 @@ PainterPlugin {
 		Component.onCompleted: {
 				// create toolbar buttons
 				var t = alg.ui.addToolBarWidget("UI.qml");
-				t.rectangle.color = "blue"
+//				t.rectangle.color = "blue"
 //				t = alg.ui.addToolBarWidget("UI.qml");
 //				t.rectangle.color = "green"
 //				t = alg.ui.addToolBarWidget("UI.qml");
