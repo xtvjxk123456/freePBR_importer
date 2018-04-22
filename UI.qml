@@ -1,32 +1,34 @@
-import QtQuick 2.3
-import QtQuick.Window 2.2
-import QtQuick.Layouts 1.2
+import QtQuick 2.7
+import QtQuick.Controls 2.0
+import QtQuick.Layouts 1.3
+import AlgWidgets 1.0
 
-Item {
-		width: 24
-		height: 24
-		objectName: "My plugin UI"
-		property alias rectangle: rect
+RowLayout{
+    id: layout
+    property var minHeight:null
+    property var minWidth:null
+//    implicitHeight: 10 不起作用
+    Button{
+        id:aButton
+        implicitHeight: parent.minHeight
+//        anchors.left: parent.left
 
-		Rectangle {
-				id: rect
-				anchors.fill: parent
-				color: "red"
-				MouseArea {
-						id: mouseArea
-						anchors.fill: parent
-						onClicked: {
-								try {
-										var ok = alg.mapexport.showExportDialog();
-										if (ok) {
-												alg.log.info("Export successful!")
-										} else {
-												alg.log.warn("Export cancelled!")
-										}
-								} catch (e) {
-										alg.log.warn(e.message)
-								}
-						}
-				}
-		}
+        text: "fff"
+
+        onClicked:{
+        alg.log.warn("我没有设置任何的命令")
+        }
+        }
+    Button{
+        id:bButton
+        implicitHeight: parent.minHeight //最小高度
+//        anchors.left: aButton.right//不需要这样的定位，因为有layout
+        text: "bb"
+        onClicked:{
+        alg.log.warn("我没有设置任何的命令")
+        }
+        }
 }
+
+
+
