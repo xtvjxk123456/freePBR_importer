@@ -7,24 +7,36 @@ AlgWindow{
                 id:importer
                 title:"freePBR-importer"
                 modality:Qt.ApplicationModal
+                property int fontSize:16
+
                 ColumnLayout{
                     id:mainLayout
                     anchors.fill:parent
                     spacing:2
 
+                    AlgLabel{
+                        id:information
+                        font.pixelSize: fontSize
+//                        fontSizeMode:Text.Fit
+
+                        text:"This tool will create layer\nfor imported PBR texture"
+
+                    }
                     AlgButton{
                         id:somename
                         text:"importer"
+
+
                         Layout.fillWidth: true
                     }
                     AlgButton{
                         id:useless
                         text:"ffff"
+
                         Layout.fillWidth: true
                     }
                     Item {
                         // spacer item
-
                         Layout.fillWidth: true
                         Layout.fillHeight: true
                         Rectangle { anchors.fill: parent;
