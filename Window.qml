@@ -10,7 +10,7 @@ AlgWindow{
                 modality:Qt.ApplicationModal
                 property int fontSize:16
                 property string fontFamily:"微软雅黑"
-                property bool setFolder:false
+                signal getedFolder(string folder)
 
                 minimumWidth: 400
                 minimumHeight: 200
@@ -115,30 +115,23 @@ AlgWindow{
                 selectFolder : true
                 onAccepted: {
                   path.text = alg.fileIO.urlToLocalFile(fileUrl.toString())
-                  getFolder =true
+                    importer.getedFolder(path.text)
                     }
                 }
 
                 function getTextureFiles(dir){
-                    alg.log.info(dir)
+                        alg.log.info(dir)
 
-                    result = alg.subprocess.check_output("dir {}".format(dir))
+//                    result = alg.subprocess.check_output("dir {}".format(dir))
 
-                    alg.log.info(result)
-                    if (typeof result =="null"){
-                        alg.log.warn("{} 内容为空".format(dir))
+//                        alg.log.info(result)
+//                        if (typeof result =="null"){
+//                            alg.log.warn("{} 内容为空".format(dir))
                     }
+                Component.onCompleted: {
+                importer.getedFolder.connect(getTextureFiles)
 
                 }
-        Component.onCompleted:{
-//            alg.log.info(getTextureFiles())
-        }
-        onsetFolderChanged:{
-            //刷新下拉框
 
-                getTextureFiles(path.text)
-
-
-        }
 
     }
