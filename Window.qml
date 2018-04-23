@@ -1,6 +1,7 @@
 import QtQuick 2.7
 import QtQuick.Layouts 1.3
 import QtQuick.Dialogs 1.2
+import QtQml 2.2
 import AlgWidgets 1.0
 
 
@@ -122,12 +123,20 @@ AlgWindow{
                 function getTextureFiles(dir){
                         alg.log.info(dir)
 
-//                    result = alg.subprocess.check_output("dir {}".format(dir))
+                    var result = alg.subprocess.check_output(["ls",
 
-//                        alg.log.info(result)
-//                        if (typeof result =="null"){
-//                            alg.log.warn("{} 内容为空".format(dir))
-                    }
+                                                    "\"%1\"".arg(dir)])
+
+
+//                    result = result.trim()
+                     alg.log.info(result)
+//                    if(result.length>0){
+//                        baseColorList.model = result.split("\n")
+//
+//                    }
+//                    alg.log.info(typeof result)
+                }
+
                 Component.onCompleted: {
                 importer.getedFolder.connect(getTextureFiles)
 
