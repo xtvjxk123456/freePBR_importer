@@ -18,8 +18,8 @@ AlgWindow{
                         id:information
                         font.pixelSize: fontSize
 //                        fontSizeMode:Text.Fit
+                        text:"本工具将freePBR的贴图导入sp"
 
-                        text:"This tool will create layer\nfor imported PBR texture"
 
                     }
                     AlgButton{
