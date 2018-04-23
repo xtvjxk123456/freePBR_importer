@@ -130,14 +130,14 @@ AlgWindow{
                     }
 
                 }
-        Component.onCompleted: {
+        Component.onCompleted:{
 //            alg.log.info(getTextureFiles())
         }
-        onsetFolderChanged{
+        onsetFolderChanged:{
             //刷新下拉框
-            if(setFolder){
+
                 getTextureFiles(path.text)
-            }
+
 
         }
 
