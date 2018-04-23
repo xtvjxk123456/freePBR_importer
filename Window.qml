@@ -10,8 +10,9 @@ AlgWindow{
                 modality:Qt.ApplicationModal
                 property int fontSize:16
                 property string fontFamily:"微软雅黑"
+                property bool setFolder:false
 
-                minimumWidth: 350
+                minimumWidth: 400
                 minimumHeight: 200
 
 
@@ -66,6 +67,34 @@ AlgWindow{
                         }
                     }
 
+                    RowLayout {
+                                id:base
+                              spacing: 6
+
+                              AlgLabel{
+                                text:"Base color"
+                                font.family:fontFamily
+                                font.pixelSize: fontSize
+                                }
+
+                              AlgComboBox {
+                                id: baseColorList
+//                                textRole: "key"
+//                                Layout.minimumWidth: 150
+
+                                Layout.fillWidth: true
+//                                Layout.fillHeight: true
+
+                                model:null
+                                function reload() {
+//                                    getTextureFiles(path.text)
+                                }
+                                Component.onCompleted: {
+                                  reload()
+                                }
+
+                              }
+                    }
 
                     Item {
                         // spacer item
@@ -81,10 +110,35 @@ AlgWindow{
                 FileDialog {
                 id: searchPathDialog
                 title: "选择某材质贴图所在目录..."
-                nameFilters: [ "Photoshop files (*.exe *.app)", "All files (*)" ]
-                selectedNameFilter: "Executable files (*)"
+//                nameFilters: [ "Photoshop files (*.exe *.app)", "All files (*)" ]
+//                selectedNameFilter: "Executable files (*)"
+                selectFolder : true
                 onAccepted: {
                   path.text = alg.fileIO.urlToLocalFile(fileUrl.toString())
+                  getFolder =true
                     }
                 }
+
+                function getTextureFiles(dir){
+                    alg.log.info(dir)
+
+                    result = alg.subprocess.check_output("dir {}".format(dir))
+
+                    alg.log.info(result)
+                    if (typeof result =="null"){
+                        alg.log.warn("{} 内容为空".format(dir))
+                    }
+
+                }
+        Component.onCompleted: {
+//            alg.log.info(getTextureFiles())
+        }
+        onsetFolderChanged{
+            //刷新下拉框
+            if(setFolder){
+                getTextureFiles(path.text)
+            }
+
+        }
+
     }
