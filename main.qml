@@ -1,12 +1,19 @@
-import QtQuick 2.2
 import Painter 1.0
+import QtQuick 2.7
+import AlgWidgets 1.0
+
 
 PainterPlugin {
+        Window{
+        id:importer
+
+        }
+
 
 		Component.onCompleted: {
 				// create toolbar buttons
 				var t = alg.ui.addToolBarWidget("toolbar.qml");
-
+                t.importWin = importer
 
 //				t.rectangle.color = "blue"
 //				t = alg.ui.addToolBarWidget("toolbar.qml");

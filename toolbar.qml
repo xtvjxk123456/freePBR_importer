@@ -7,6 +7,7 @@ RowLayout{
 //    property var minHeight:null
 //    property var minWidth:null
 //    implicitHeight: 10 不起作用
+    property var importWin:null
     AlgButton{
         id:aButton
         implicitHeight: 30
@@ -15,7 +16,15 @@ RowLayout{
 
         text: "freePBR"
         onClicked:{
-        alg.log.info("我没有设置任何的命令")
+//        alg.log.info("我没有设置任何的命令")
+            try{
+                importWin.open()
+
+            }
+            catch(err){
+                alg.log.exception(err)
+            }
+
         }
         }
 
