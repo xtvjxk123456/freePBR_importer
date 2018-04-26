@@ -13,8 +13,6 @@ AlgWindow{
                 property var files:null
                 signal getedFolder(string folder)
 
-
-
                 minimumWidth: 400
                 minimumHeight: 250
 
