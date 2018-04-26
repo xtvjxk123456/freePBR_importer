@@ -4,7 +4,6 @@ import QtQuick.Dialogs 1.2
 import QtQml 2.2
 import AlgWidgets 1.0
 
-
 AlgWindow{
                 id:importer
                 title:"freePBR-importer"
@@ -120,27 +119,26 @@ AlgWindow{
                     }
                 }
 
-                function getTextureFiles(dir){
-                        alg.log.info(dir)
 
-                    var result = alg.subprocess.check_output(["ls",
-
-                                                    "\"%1\"".arg(dir)])
-
-
-//                    result = result.trim()
-                     alg.log.info(result)
-//                    if(result.length>0){
-//                        baseColorList.model = result.split("\n")
-//
-//                    }
-//                    alg.log.info(typeof result)
-                }
 
                 Component.onCompleted: {
                 importer.getedFolder.connect(getTextureFiles)
 
                 }
 
+                function getTextureFiles(dir){
+                        alg.log.info(dir)
+                    var result = ""
+                    result = alg.subprocess.check_output([alg.plugin_root_directory+"getInfo.exe",
+                                                                                  "-tex",
+                                                                                dir])
 
+                    var files = result.trim().split("\r\n");
+                    updateList(files)
+//                    alg.log.info(files)
+                }
+                function updateList(files){
+                    baseColorList.model = files;
+
+                }
     }
