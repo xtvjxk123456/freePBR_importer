@@ -8,12 +8,15 @@ AlgWindow{
                 id:importer
                 title:"freePBR-importer"
                 modality:Qt.ApplicationModal
-                property int fontSize:16
+                property int fontSize:18
                 property string fontFamily:"微软雅黑"
+                property var files:null
                 signal getedFolder(string folder)
 
+
+
                 minimumWidth: 400
-                minimumHeight: 200
+                minimumHeight: 250
 
 
                 ColumnLayout{
@@ -72,19 +75,16 @@ AlgWindow{
                               spacing: 6
 
                               AlgLabel{
-                                text:"Base color"
+                                text:"Base Color"
                                 font.family:fontFamily
                                 font.pixelSize: fontSize
                                 }
 
                               AlgComboBox {
                                 id: baseColorList
-//                                textRole: "key"
 //                                Layout.minimumWidth: 150
-
                                 Layout.fillWidth: true
 //                                Layout.fillHeight: true
-
                                 model:null
                                 function reload() {
 //                                    getTextureFiles(path.text)
@@ -92,9 +92,105 @@ AlgWindow{
                                 Component.onCompleted: {
                                   reload()
                                 }
-
                               }
-                    }
+                            }
+                    RowLayout {
+                                id:metal
+                              spacing: 6
+
+                              AlgLabel{
+                                text:"Metal Color"
+                                font.family:fontFamily
+                                font.pixelSize: fontSize
+                                }
+
+                              AlgComboBox {
+                                id: metalColorList
+//                                Layout.minimumWidth: 150
+                                Layout.fillWidth: true
+//                                Layout.fillHeight: true
+                                model:null
+                                function reload() {
+//                                    getTextureFiles(path.text)
+                                }
+                                Component.onCompleted: {
+                                  reload()
+                                }
+                              }
+                            }
+                    RowLayout {
+                                id:rough
+                              spacing: 6
+
+                              AlgLabel{
+                                text:"Rough Color"
+                                font.family:fontFamily
+                                font.pixelSize: fontSize
+                                }
+
+                              AlgComboBox {
+                                id: roughColorList
+//                                Layout.minimumWidth: 150
+                                Layout.fillWidth: true
+//                                Layout.fillHeight: true
+                                model:null
+                                function reload() {
+//                                    getTextureFiles(path.text)
+                                }
+                                Component.onCompleted: {
+                                  reload()
+                                }
+                              }
+                            }
+                    RowLayout {
+                                id:normal
+                              spacing: 6
+
+                              AlgLabel{
+                                text:"Normal Color"
+                                font.family:fontFamily
+                                font.pixelSize: fontSize
+                                }
+
+                              AlgComboBox {
+                                id: normalColorList
+//                                Layout.minimumWidth: 150
+                                Layout.fillWidth: true
+//                                Layout.fillHeight: true
+                                model:null
+                                function reload() {
+//                                    getTextureFiles(path.text)
+                                }
+                                Component.onCompleted: {
+                                  reload()
+                                }
+                              }
+                            }
+                    RowLayout {
+                                id:height
+                              spacing: 6
+
+                              AlgLabel{
+                                text:"Height Color"
+                                font.family:fontFamily
+                                font.pixelSize: fontSize
+                                }
+
+                              AlgComboBox {
+                                id: heightColorList
+//                                Layout.minimumWidth: 150
+                                Layout.fillWidth: true
+//                                Layout.fillHeight: true
+                                model:null
+                                function reload() {
+//                                    getTextureFiles(path.text)
+                                }
+                                Component.onCompleted: {
+                                  reload()
+                                }
+                              }
+                            }
+
 
                     Item {
                         // spacer item
@@ -120,7 +216,6 @@ AlgWindow{
                 }
 
 
-
                 Component.onCompleted: {
                 importer.getedFolder.connect(getTextureFiles)
 
@@ -129,16 +224,38 @@ AlgWindow{
                 function getTextureFiles(dir){
                         alg.log.info(dir)
                     var result = ""
-                    result = alg.subprocess.check_output([alg.plugin_root_directory+"getInfo.exe",
-                                                                                  "-tex",
-                                                                                dir])
-
+                    result = alg.subprocess.check_output([alg.plugin_root_directory+"getInfo.exe","-tex",dir])
                     var files = result.trim().split("\r\n");
-                    updateList(files)
-//                    alg.log.info(files)
+                    if(files.length !=0){
+                        updateList(files)
+                        result = alg.subprocess.check_output([alg.plugin_root_directory+"getInfo.exe","-f",dir])
+                        files = result.trim().split("\r\n");
+                        importer.files = files;
+
+                    }
+
                 }
+
                 function updateList(files){
                     baseColorList.model = files;
+                    metalColorList.model = files;
+                    roughColorList.model = files;
+                    normalColorList.model = files;
+                    heightColorList.model = files;
 
                 }
+                function getPath(filename,fileDatas){
+                    if(fileDatas.length!=0){
+                        for(var f in fileDatas){
+                            var result = f.match("/(.*)"+filename+"/g")
+                            if(result !=null){
+                                return f;
+                            }
+                        }
+                    }
+                    else{
+                        return null;
+                    }
+                }
+
     }
